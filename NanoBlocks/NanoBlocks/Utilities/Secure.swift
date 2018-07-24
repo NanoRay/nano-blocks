@@ -64,7 +64,7 @@ struct NaCl: Secure {
     }
     
     static func keyPair(from secret: Data) -> KeyPair? {
-        let pair = Sodium().sign.keyPair(secret: secret)
+        let pair = Sodium().sign.keyPair(seed: secret)
         guard let pub = pair?.publicKey, let secret = pair?.secretKey else { return nil }
         return KeyPair(publicKey: pub, secretKey: secret)
     }

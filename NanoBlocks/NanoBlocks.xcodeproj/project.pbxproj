@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18A88B7A2107D7DB0085D0B3 /* MantaWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A88B792107D7DB0085D0B3 /* MantaWallet.swift */; };
 		A70E8E032094F91B00372394 /* EnterAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70E8E022094F91B00372394 /* EnterAddressViewController.swift */; };
 		A70E8E062097B7FF00372394 /* DataExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70E8E052097B7FF00372394 /* DataExporter.swift */; };
 		A71CEB9E2054AE2F00FF6B54 /* LockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71CEB9C2054AE2F00FF6B54 /* LockViewController.swift */; };
@@ -167,6 +168,7 @@
 
 /* Begin PBXFileReference section */
 		0FCBF9050B355F6BFF6E7104 /* Pods-GenesisWallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenesisWallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-GenesisWallet/Pods-GenesisWallet.release.xcconfig"; sourceTree = "<group>"; };
+		18A88B792107D7DB0085D0B3 /* MantaWallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MantaWallet.swift; sourceTree = "<group>"; };
 		1C040B25385B8D2588C0376E /* Pods_NanoWallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NanoWallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		230E436E94AB58C7573ED697 /* Pods-NanoWalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NanoWalletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NanoWalletTests/Pods-NanoWalletTests.release.xcconfig"; sourceTree = "<group>"; };
 		23F5581ECB86384B9E38413C /* Pods-NanoBlocks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NanoBlocks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NanoBlocks/Pods-NanoBlocks.debug.xcconfig"; sourceTree = "<group>"; };
@@ -353,6 +355,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18A88B762107D7970085D0B3 /* Manta */ = {
+			isa = PBXGroup;
+			children = (
+				18A88B792107D7DB0085D0B3 /* MantaWallet.swift */,
+			);
+			path = Manta;
+			sourceTree = "<group>";
+		};
 		A71CEBA02054AE4000FF6B54 /* LockWallet */ = {
 			isa = PBXGroup;
 			children = (
@@ -448,6 +458,7 @@
 		A74361DA1FE64F9000054078 = {
 			isa = PBXGroup;
 			children = (
+				18A88B762107D7970085D0B3 /* Manta */,
 				A74361E51FE64F9100054078 /* NanoBlocks */,
 				A76D2733204E986000615B7A /* NanoBlocksTests */,
 				A74361E41FE64F9100054078 /* Products */,
@@ -835,7 +846,6 @@
 				A74361E01FE64F9100054078 /* Frameworks */,
 				A74361E11FE64F9100054078 /* Resources */,
 				885A0314CF3C477935B47A93 /* [CP] Embed Pods Frameworks */,
-				DB677D2FCECB452AFDAE617C /* [CP] Copy Pods Resources */,
 				A7EF84191FED7D7D00C74035 /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -856,7 +866,6 @@
 				A76D272F204E986000615B7A /* Frameworks */,
 				A76D2730204E986000615B7A /* Resources */,
 				2821D9E873E38494BCCFB2E7 /* [CP] Embed Pods Frameworks */,
-				20CE0F1CD5144E89E17F967B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -985,21 +994,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		20CE0F1CD5144E89E17F967B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NanoBlocksTests/Pods-NanoBlocksTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		2821D9E873E38494BCCFB2E7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1033,11 +1027,14 @@
 				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesSwift/Promises.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Sodium/Sodium.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyTimer/SwiftyTimer.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 			);
@@ -1049,32 +1046,20 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NotificationBannerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SSZipArchive.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sodium.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyTimer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NanoBlocks/Pods-NanoBlocks-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DB677D2FCECB452AFDAE617C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NanoBlocks/Pods-NanoBlocks-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FE3472891607C7D73C312008 /* [CP] Check Pods Manifest.lock */ = {
@@ -1181,6 +1166,7 @@
 				A753FBD4206104EC00E88B77 /* CanoeService.swift in Sources */,
 				A7F88F3A2069F26200CDB7AB /* EnterAddressViewModel.swift in Sources */,
 				A7B327F82002A43500E0E360 /* LeftAlignedIconButton.swift in Sources */,
+				18A88B7A2107D7DB0085D0B3 /* MantaWallet.swift in Sources */,
 				A76AC7C62030239C00C7CEE8 /* Currency.swift in Sources */,
 				A768B99B201F0ABB00620B62 /* NumpadCollectionViewCell.swift in Sources */,
 				A71CEBA42054EB0E00FF6B54 /* AboutViewController.swift in Sources */,
@@ -1370,7 +1356,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = TY84UMVK4N;
+				DEVELOPMENT_TEAM = UP66RWK5AX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/**",
@@ -1384,7 +1370,7 @@
 					"-framework",
 					"\"Sodium\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.planarform.nanoblocks;
+				PRODUCT_BUNDLE_IDENTIFIER = org.alvistar..nanoblocks;
 				PRODUCT_MODULE_NAME = NanoBlocks;
 				PRODUCT_NAME = "Nano Blocks";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -1403,7 +1389,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = TY84UMVK4N;
+				DEVELOPMENT_TEAM = UP66RWK5AX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1417,7 +1403,7 @@
 					"-framework",
 					"\"Sodium\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.planarform.nanoblocks;
+				PRODUCT_BUNDLE_IDENTIFIER = org.alvistar..nanoblocks;
 				PRODUCT_MODULE_NAME = NanoBlocks;
 				PRODUCT_NAME = "Nano Blocks";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
