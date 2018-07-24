@@ -37,6 +37,7 @@ class SendViewController: UIViewController {
     @IBOutlet weak var bgView: UIView?
     weak var delegate: SendViewControllerDelegate?
     private(set) var account: AccountInfo
+    private var manta: MantaWallet?
     
     init(account: AccountInfo) {
         self.account = account
@@ -198,22 +199,44 @@ class SendViewController: UIViewController {
     }
     
     func apply(scanResult: PaymentInfo) {
-        addressLabel?.text = scanResult.address
-        nameAddressStackView?.isHidden = false
-        enterAddressButton?.isHidden = true
-        if let existingContact = PersistentStore.getAddressEntries().filter({ $0.address == scanResult.address }).first {
-            addAddressButton?.isHidden = true
-            nameButton?.setTitle(existingContact.name, for: .normal)
-        } else {
-            nameButton?.setTitle(.localize("unknown"), for: .normal)
-            addAddressButton?.isHidden = false
-        }
+        print("AAAAHHAHHAH")
         
-        if let amount = scanResult.nanoAmount {
+        func setAmount(_ amount: String) {
             amountLabel?.text = amount
             enterAmountButton?.isHidden = true
             amountLabel?.isHidden = false
             currencyLabel?.isHidden = false
+        }
+        
+        nameAddressStackView?.isHidden = false
+        enterAddressButton?.isHidden = true
+        
+        if let url = scanResult.mantaURL {
+            manta = MantaWallet (url)
+            manta?.getPaymentRequest().then { paymentRequest in
+                self.addressLabel?.text = paymentRequest.destinations[0].destinationAddress
+                self.addAddressButton?.isHidden = true
+                self.nameButton?.setTitle(paymentRequest.merchant, for: .normal)
+                setAmount(Double(paymentRequest.destinations[0].amount * 1000000000000000000000000000000).toMxrb)
+            }
+        }
+        
+        else {
+        
+            addressLabel?.text = scanResult.address
+
+            if let existingContact = PersistentStore.getAddressEntries().filter({ $0.address == scanResult.address }).first {
+                addAddressButton?.isHidden = true
+                nameButton?.setTitle(existingContact.name, for: .normal)
+            } else {
+                nameButton?.setTitle(.localize("unknown"), for: .normal)
+                addAddressButton?.isHidden = false
+            }
+            
+            if let amount = scanResult.nanoAmount {
+                setAmount(amount)
+            }
+            
         }
     }
 }

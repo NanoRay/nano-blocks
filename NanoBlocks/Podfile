@@ -13,6 +13,7 @@ target 'NanoBlocks' do
   pod 'lottie-ios'
   pod 'SSZipArchive'
   pod 'CocoaMQTT'
+  pod 'PromisesSwift', '~> 1.2.3'
 end
 
 target 'NanoBlocksTests' do

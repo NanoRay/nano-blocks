@@ -13,15 +13,29 @@ struct PaymentInfo {
     // Nano amount as RAW
     let amount: String?
     let address: String?
+    
+    // Manta
+    let mantaURL: String?
+    
     // Non-RAW amount
     var nanoAmount: String? {
         guard let amt = amount, let amtVal = Double(amt)?.toMxrb else { return nil }
         return amtVal
     }
+    
+    init (amount: String? = nil, address: String? = nil, url: String? = nil) {
+        self.amount = amount
+        self.address = address
+        self.mantaURL = url
+    }
+    
+    
 }
 
-class QRScanViewController: UIViewController {
 
+
+class QRScanViewController: UIViewController {
+    
     @IBOutlet weak var qrScanTipLabel: UILabel?
     @IBOutlet weak var qrImageView: UIImageView?
     @IBOutlet weak var qrIndicatorView: UIView?
@@ -125,13 +139,20 @@ extension QRScanViewController: AVCaptureMetadataOutputObjectsDelegate {
                 address = paymentInfo.address
                 amount = paymentInfo.amount
             }
-            guard let addr = address else {
+            
+            let manta = MantaWallet.parseURL(value).count > 0 ? true : false
+            
+            if manta == false && address == nil {
                 qrIndicatorView?.layer.borderColor = UIColor.red.cgColor
                 return
             }
+            
+            self.captureSession.stopRunning()
+            
             // 
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
-                self.onQRCodeScanned?(PaymentInfo(amount: amount, address: addr))
+                let paymentInfo = manta ? PaymentInfo(url: value) : PaymentInfo(amount: amount, address: address!)
+                self.onQRCodeScanned?(paymentInfo)
                 self.dismiss(animated: true)
             })
         }
