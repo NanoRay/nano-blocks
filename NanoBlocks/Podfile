@@ -6,8 +6,8 @@ target 'NanoBlocks' do
   use_frameworks!
 
   # Pods for NanoBlocks
-  pod 'Alamofire', '~> 4.6.0'
-  pod 'RealmSwift', '~> 3.1.1'
+  pod 'Alamofire'
+  pod 'RealmSwift'
   pod 'NotificationBannerSwift'
   pod 'Moya', '~> 11.0'
   pod 'lottie-ios'
@@ -18,5 +18,10 @@ end
 
 target 'NanoBlocksTests' do
   use_frameworks!
+<<<<<<< HEAD
   pod 'RealmSwift', '~> 3.1.1'
 end
+=======
+  pod 'RealmSwift'
+end
+>>>>>>> b713d81fa2a31fa5abefd412947eddf7198841d5
