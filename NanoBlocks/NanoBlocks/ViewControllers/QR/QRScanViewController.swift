@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import mantaswift
 
 struct PaymentInfo {
     // Nano amount as RAW

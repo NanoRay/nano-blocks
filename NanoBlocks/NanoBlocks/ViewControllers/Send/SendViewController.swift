@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import mantaswift
 
 protocol SendViewControllerDelegate: class {
     func scanTapped()

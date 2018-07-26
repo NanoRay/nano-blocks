@@ -14,7 +14,8 @@ target 'NanoBlocks' do
   pod 'SSZipArchive'
   pod 'CocoaMQTT'
   pod 'PromisesSwift', '~> 1.2.3'
-  pod 'Sodium'
+  pod 'Sodium', :git => 'https://github.com/nebyark/swift-sodium.git'
+  pod "mantaswift", :path => '/Users/avigano/Developer/mantaProtocolUI'
 end
 
 target 'NanoBlocksTests' do
