@@ -155,7 +155,7 @@ class SendViewController: UIViewController {
             Banner.show(.localize("insufficient-funds"), style: .danger)
             return
         }
-        let txInfo = TxInfo(recipientName: recipientName, recipientAddress: recipientAddress, amount: amount, balance: remaining.decimalExpansion(precisionAfterComma: 6), accountInfo: account)
+        let txInfo = TxInfo(recipientName: recipientName, recipientAddress: recipientAddress, amount: amount, balance: remaining.decimalExpansion(precisionAfterComma: 6), accountInfo: account, manta: manta)
         delegate?.sendTapped(txInfo: txInfo)
     }
     

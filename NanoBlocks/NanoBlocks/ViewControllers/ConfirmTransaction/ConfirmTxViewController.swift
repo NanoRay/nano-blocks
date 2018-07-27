@@ -116,9 +116,12 @@ class ConfirmTxViewController: UIViewController {
             self.contentView?.alpha = 0.0
         }
         LoadingView.startAnimating(in: self.navigationController)
-        BlockHandler.handle(block, for: account) { [weak self] (result) in
+        BlockHandler.handle(block, for: account) { [weak self, mantaWallet = self.txInfo.manta] (result) in
             switch result {
-            case .success(_):
+            case .success(let blockHash):
+                if let manta = mantaWallet {
+                        manta.sendPayment_(cryptoCurrency: "nano", hashes: blockHash)
+                }
                 LoadingView.stopAnimating(true) {
                     self?.onSendComplete?()
                     self?.dismiss(animated: true)

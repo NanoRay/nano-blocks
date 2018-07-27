@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import mantaswift
 
 struct TxInfo {
     var recipientName: String
@@ -14,4 +15,5 @@ struct TxInfo {
     var amount: String
     var balance: String
     var accountInfo: AccountInfo
+    var manta: MantaWallet?
 }
