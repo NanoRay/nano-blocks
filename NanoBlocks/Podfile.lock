@@ -35,7 +35,7 @@ DEPENDENCIES:
   - Alamofire
   - CocoaMQTT
   - lottie-ios
-  - mantaswift (from `/Users/avigano/Developer/mantaProtocolUI`)
+  - mantaswift (from `https://github.com/NanoRay/mantaswift`)
   - Moya (~> 11.0)
   - NotificationBannerSwift
   - PromisesSwift (~> 1.2.3)
@@ -63,11 +63,14 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   mantaswift:
-    :path: "/Users/avigano/Developer/mantaProtocolUI"
+    :git: https://github.com/NanoRay/mantaswift
   Sodium:
     :git: https://github.com/nebyark/swift-sodium.git
 
 CHECKOUT OPTIONS:
+  mantaswift:
+    :commit: f6fd0456b8978a6f3f7fa1ee5929f19a68cd397a
+    :git: https://github.com/NanoRay/mantaswift
   Sodium:
     :commit: f4f22bcc4b6b15b5e367056055d28de4775024fd
     :git: https://github.com/nebyark/swift-sodium.git
@@ -77,7 +80,7 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
   CocoaMQTT: d33ab3cd4e329f9f1cfbb62e25306a318a606616
   lottie-ios: d699fdee68d7b63e721d949388b015fef1aaa4ac
-  mantaswift: 3384ab288105f5006318ddf7934abe80a2bed482
+  mantaswift: 8fdb10bf601ded38cb4de4893ad3fbb8ea954f5a
   MarqueeLabel: 0c41f08ef5773e29c0f71064a8fa788a2fd8b365
   Moya: a725035953bc1c0eb1be505ab903984501d82440
   NotificationBannerSwift: b231e4c3244848ef300e1c53ce027b9756b9b06f
@@ -91,6 +94,6 @@ SPEC CHECKSUMS:
   SSZipArchive: 41455d4b8d2b6ab93990820b50dc697c2554a322
   SwiftyTimer: 2efd74b060d69ad4f1496baf5bbedbe132125fcf
 
-PODFILE CHECKSUM: 6c92c13371110e61eae4a133f9fe66b7ad5de2bb
+PODFILE CHECKSUM: eb919ae4514b68762d10a24f76a563f355bc2108
 
 COCOAPODS: 1.5.3

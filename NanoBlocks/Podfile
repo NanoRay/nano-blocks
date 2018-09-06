@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '10.0'
+platform :ios, '10.3'
 
 target 'NanoBlocks' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -15,7 +15,8 @@ target 'NanoBlocks' do
   pod 'CocoaMQTT'
   pod 'PromisesSwift', '~> 1.2.3'
   pod 'Sodium', :git => 'https://github.com/nebyark/swift-sodium.git'
-  pod "mantaswift", :path => '/Users/avigano/Developer/mantaProtocolUI'
+  #pod "mantaswift", :path => '/Users/avigano/Developer/mantaProtocolUI'
+  pod "mantaswift", :git => 'https://github.com/NanoRay/mantaswift'
 end
 
 target 'NanoBlocksTests' do
