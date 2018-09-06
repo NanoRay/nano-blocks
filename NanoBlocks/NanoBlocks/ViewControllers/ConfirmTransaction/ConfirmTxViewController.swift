@@ -116,7 +116,7 @@ class ConfirmTxViewController: UIViewController {
             self.contentView?.alpha = 0.0
         }
         LoadingView.startAnimating(in: self.navigationController)
-        BlockHandler.handle(block, for: account) { [weak self, mantaWallet = self.txInfo.manta] (result) in
+        BlockHandler.handle(block, for: account) { [weak self, weak mantaWallet = self.txInfo.manta] (result) in
             switch result {
             case .success(let blockHash):
                 if let manta = mantaWallet {

@@ -214,10 +214,13 @@ class SendViewController: UIViewController {
         
         if let url = scanResult.mantaURL {
             manta = MantaWallet (url)
-            manta?.getPaymentRequest().then { paymentRequest in
+            manta?.getPaymentRequest().then { paymentRequestEnvelope in
+                // TODO: Forcing try no good
+                let paymentRequest = try! paymentRequestEnvelope.unpack()
+                
                 self.addressLabel?.text = paymentRequest.destinations[0].destinationAddress
                 self.addAddressButton?.isHidden = true
-                self.nameButton?.setTitle(paymentRequest.merchant, for: .normal)
+                self.nameButton?.setTitle(paymentRequest.merchant.name, for: .normal)
                 setAmount(Double(paymentRequest.destinations[0].amount * 1000000000000000000000000000000).toMxrb)
             }
         }
