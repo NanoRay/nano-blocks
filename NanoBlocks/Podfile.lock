@@ -1,14 +1,10 @@
 PODS:
   - Alamofire (4.7.3)
   - CocoaAsyncSocket (7.6.3)
-  - CocoaMQTT (1.1.2):
-    - CocoaAsyncSocket (~> 7.6.1)
-    - SwiftyTimer (~> 2.0.0)
-  - lottie-ios (2.5.0)
-  - mantaswift (0.0.1):
-    - CocoaMQTT (~> 1.1.2)
-    - PromisesSwift (~> 1.2.3)
-  - MarqueeLabel/Swift (3.1.6)
+  - CocoaMQTT (1.1.3):
+    - CocoaAsyncSocket (~> 7.6.3)
+  - lottie-ios (2.5.2)
+  - MarqueeLabel/Swift (3.2.0)
   - Moya (11.0.2):
     - Moya/Core (= 11.0.2)
   - Moya/Core (11.0.2):
@@ -17,83 +13,50 @@ PODS:
   - NotificationBannerSwift (1.6.3):
     - MarqueeLabel/Swift
     - SnapKit (~> 4.0)
-  - PromisesObjC (1.2.3)
-  - PromisesSwift (1.2.3):
-    - PromisesObjC (= 1.2.3)
-  - Realm (3.8.0):
-    - Realm/Headers (= 3.8.0)
-  - Realm/Headers (3.8.0)
-  - RealmSwift (3.8.0):
-    - Realm (= 3.8.0)
+  - Realm (3.7.6):
+    - Realm/Headers (= 3.7.6)
+  - Realm/Headers (3.7.6)
+  - RealmSwift (3.7.6):
+    - Realm (= 3.7.6)
   - Result (3.2.4)
-  - SnapKit (4.0.0)
+  - SnapKit (4.2.0)
   - Sodium (0.6)
   - SSZipArchive (2.1.4)
-  - SwiftyTimer (2.0.0)
 
 DEPENDENCIES:
   - Alamofire
   - CocoaMQTT
   - lottie-ios
-  - mantaswift (from `https://github.com/NanoRay/mantaswift`)
   - Moya (~> 11.0)
-  - NotificationBannerSwift
-  - PromisesSwift (~> 1.2.3)
+  - NotificationBannerSwift (= 1.6.3)
   - RealmSwift
-  - Sodium (from `https://github.com/nebyark/swift-sodium.git`)
+  - Sodium (from `https://github.com/nebyark/swift-sodium`)
   - SSZipArchive
 
-SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - Alamofire
-    - CocoaAsyncSocket
-    - CocoaMQTT
-    - lottie-ios
-    - MarqueeLabel
-    - Moya
-    - NotificationBannerSwift
-    - PromisesObjC
-    - PromisesSwift
-    - Realm
-    - RealmSwift
-    - Result
-    - SnapKit
-    - SSZipArchive
-    - SwiftyTimer
-
 EXTERNAL SOURCES:
-  mantaswift:
-    :git: https://github.com/NanoRay/mantaswift
   Sodium:
-    :git: https://github.com/nebyark/swift-sodium.git
+    :git: https://github.com/nebyark/swift-sodium
 
 CHECKOUT OPTIONS:
-  mantaswift:
-    :commit: f6fd0456b8978a6f3f7fa1ee5929f19a68cd397a
-    :git: https://github.com/NanoRay/mantaswift
   Sodium:
-    :commit: f4f22bcc4b6b15b5e367056055d28de4775024fd
-    :git: https://github.com/nebyark/swift-sodium.git
+    :commit: 4b32f5d12c587e4252e039d60f9a1498526ece5b
+    :git: https://github.com/nebyark/swift-sodium
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
-  CocoaMQTT: d33ab3cd4e329f9f1cfbb62e25306a318a606616
-  lottie-ios: d699fdee68d7b63e721d949388b015fef1aaa4ac
-  mantaswift: 8fdb10bf601ded38cb4de4893ad3fbb8ea954f5a
-  MarqueeLabel: 0c41f08ef5773e29c0f71064a8fa788a2fd8b365
+  CocoaMQTT: b506d38ad3bbe1c55a4f8ee8c9fd02c35da1a7d8
+  lottie-ios: 3fef45d3fabe63e3c7c2eb603dd64ddfffc73062
+  MarqueeLabel: 440a502b91a9179bd98f9fff00ba1150650a1c0e
   Moya: a725035953bc1c0eb1be505ab903984501d82440
   NotificationBannerSwift: b231e4c3244848ef300e1c53ce027b9756b9b06f
-  PromisesObjC: a3a4263d8a9260214267e0b3788d0f83466ad449
-  PromisesSwift: f7f45c21986419e85f7c5b645ed8c6a2c10c04b4
-  Realm: 3fdae59de78838064e9f77638d7cdb7b8cff9dc8
-  RealmSwift: c990518b800e106d1f77099d3a4648c3b100337d
+  Realm: 9eaecad54712d6246d08ba34c10f354e4715d7d3
+  RealmSwift: 1fe08b4ebaeeaacf17f9ba0343f7b25c9fc31fa6
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
-  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   Sodium: 3cd000dc8d21be5d448fbb4366a7b1c9392b1ae6
   SSZipArchive: 41455d4b8d2b6ab93990820b50dc697c2554a322
-  SwiftyTimer: 2efd74b060d69ad4f1496baf5bbedbe132125fcf
 
-PODFILE CHECKSUM: eb919ae4514b68762d10a24f76a563f355bc2108
+PODFILE CHECKSUM: eec7b56f011a52391eafd5f708b967129c88fac2
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.4.0

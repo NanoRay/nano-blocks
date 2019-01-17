@@ -142,7 +142,7 @@ class SendViewController: UIViewController {
     
     @IBAction func sendTapped(_ sender: Any) {
         // Validate balance, address, etc
-        guard let amount = amountLabel?.text, let amountValue = BDouble(amount), amountValue > 0.0 else {
+        guard let amount = amountLabel?.text, amount.decimalNumber.decimalValue > 0.0 else {
             Banner.show(.localize("please-enter-amount"), style: .warning)
             return
         }
@@ -150,12 +150,13 @@ class SendViewController: UIViewController {
             Banner.show(.localize("enter-recipient-address"), style: .warning)
             return
         }
-        let remaining = account.mxrbBalance.bNumber - amountValue
-        guard remaining >= 0.0 else {
+        let remaining = account.balance.decimalNumber.subtracting(amount.decimalNumber.rawValue)
+        guard remaining.decimalValue >= 0.0 else {
             Banner.show(.localize("insufficient-funds"), style: .danger)
             return
         }
-        let txInfo = TxInfo(recipientName: recipientName, recipientAddress: recipientAddress, amount: amount, balance: remaining.decimalExpansion(precisionAfterComma: 6), accountInfo: account, manta: manta)
+
+        let txInfo = TxInfo(recipientName: recipientName, recipientAddress: recipientAddress, amount: amount, rawBalance: remaining.stringValue, accountInfo: account, manta: manta)
         delegate?.sendTapped(txInfo: txInfo)
     }
     
@@ -200,7 +201,6 @@ class SendViewController: UIViewController {
     }
     
     func apply(scanResult: PaymentInfo) {
-        print("AAAAHHAHHAH")
         
         func setAmount(_ amount: String) {
             amountLabel?.text = amount

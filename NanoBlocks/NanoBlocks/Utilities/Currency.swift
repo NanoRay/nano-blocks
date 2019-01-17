@@ -11,6 +11,7 @@ import Foundation
 enum Currency: String {
     case aud
     case brl
+    case btc
     case cad
     case chf
     case clp
@@ -43,13 +44,14 @@ enum Currency: String {
     case lambo
     
     static var all: [Currency] {
-        return [.usd, .eur, .jpy, .krw, .lambo, .aud, .brl, .cad, .chf, .clp, .cny, .czk, .dkk, .gbp, .hkd, .huf, .idr, .ils, .inr, .mxn, .myr, .nok, .nzd, .php, .pkr, . pln, .rub, .sek, .sgd, .thb, .twd, .zar]
+        return [.btc, .usd, .eur, .jpy, .krw, .lambo, .aud, .brl, .cad, .chf, .clp, .cny, .czk, .dkk, .gbp, .hkd, .huf, .idr, .ils, .inr, .mxn, .myr, .nok, .nzd, .php, .pkr, . pln, .rub, .sek, .sgd, .thb, .twd, .zar]
     }
     
     var precision: Int {
         switch self {
         case .jpy, .krw: return 0
         case .lambo: return 6
+        case .btc: return 8
         default: return 2
         }
     }
@@ -57,6 +59,7 @@ enum Currency: String {
     var symbol: String {
         switch self {
         case .usd, .sgd, .cad, .hkd, .nzd, .mxn, .clp: return "$"
+        case .btc: return "₿"
         case .eur: return "€"
         case .jpy, .cny: return "¥"
         case .krw: return "₩"
@@ -82,16 +85,29 @@ enum Currency: String {
         }
     }
     
-    /// Converts a Nano (either raw or mxrb) amount to the user's selected 'secondary' currency.
-    func convert(_ value: BDouble, isRaw: Bool = true) -> String {
-        let value = isRaw ? value.toMxrbValue : value
-        return (Currency.secondaryConversionRate * value).decimalExpansion(precisionAfterComma: self.precision)
+    /// The currency value type, while stripping redundancies (like LAMBO, chf, etc)
+    var typePostfix: String {
+        var base = rawValue.uppercased()
+        if rawValue.uppercased() != symbol.uppercased() {
+            base += " (\(symbol))"
+        }
+        return base
     }
     
-    func convertToFiat(_ value: BDouble, isRaw: Bool = true) -> String {
-        let value = isRaw ? value.toMxrb : value.decimalExpansion(precisionAfterComma: 6)
-        return ((Double(value) ?? 0.0) * Currency.secondaryConversionRate).chopDecimal(to: Currency.secondary.precision)
+    /// Converts a Nano (either raw or mxrb) amount to the user's selected 'secondary' currency.
+    func convert(_ value: NSDecimalNumber, isRaw: Bool = true) -> String {
+        let value = isRaw ? value.mxrbAmount : value
+        let conversionRate = Decimal(Currency.secondaryConversionRate)
+        let convertedValue = value.multiplying(by: NSDecimalNumber(decimal: conversionRate))
+        let numberFormatter = NumberFormatter()
+        numberFormatter.maximumFractionDigits = self.precision
+        numberFormatter.minimumFractionDigits = self.precision
+        numberFormatter.numberStyle = .decimal
+
+        let numberValue = NSNumber(value: convertedValue.doubleValue)
+        return numberFormatter.string(from: numberValue) ?? "--"
     }
+
     func setRate(_ rate: Double) {
         UserDefaults.standard.set(rate, forKey: .kSecondaryConversionRate)
         UserDefaults.standard.synchronize()
@@ -102,7 +118,15 @@ enum Currency: String {
         UserDefaults.standard.set(rate, forKey: .kSecondaryConversionRate)
         UserDefaults.standard.synchronize()
     }
-    
+
+    static func setSecondary(_ selected: Bool) {
+        if selected {
+            UserDefaults.standard.set(true, forKey: .kSecondarySelected)
+        } else {
+            UserDefaults.standard.removeObject(forKey: .kSecondarySelected)
+        }
+    }
+
     static var secondary: Currency {
         let currRaw = UserDefaults.standard.value(forKey: .kSecondaryCurrency) as? String ?? ""
         return Currency(rawValue: currRaw) ?? .usd
@@ -111,9 +135,14 @@ enum Currency: String {
     static var secondaryConversionRate: Double {
         return UserDefaults.standard.value(forKey: .kSecondaryConversionRate) as? Double ?? 1.0
     }
+
+    static var isSecondarySelected: Bool {
+        return UserDefaults.standard.value(forKey: .kSecondarySelected) != nil
+    }
 }
 
 extension String {
     static let kSecondaryCurrency: String = "kSecondaryCurrency"
     static let kSecondaryConversionRate: String = "kSecondaryConversionRate"
+    static let kSecondarySelected: String = "kSecondarySelected"
 }

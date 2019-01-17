@@ -20,8 +20,9 @@ struct PaymentInfo {
     
     // Non-RAW amount
     var nanoAmount: String? {
-        guard let amt = amount, let amtVal = Double(amt)?.toMxrb else { return nil }
-        return amtVal
+        guard let amount = self.amount else { return nil }
+        let mxrb = amount.decimalNumber.mxrbAmount
+        return nanoFormatter(12).string(from: mxrb) ?? "0"
     }
     
     init (amount: String? = nil, address: String? = nil, url: String? = nil) {

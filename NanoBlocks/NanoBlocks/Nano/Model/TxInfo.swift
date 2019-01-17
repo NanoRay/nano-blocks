@@ -13,7 +13,27 @@ struct TxInfo {
     var recipientName: String
     var recipientAddress: String
     var amount: String
-    var balance: String
+    var rawBalance: String
     var accountInfo: AccountInfo
     var manta: MantaWallet?
+
+    func createBlock(with keyPair: KeyPair) -> StateBlock? {
+        guard
+            self.amount.decimalNumber.decimalValue > 0.0
+        else {
+            return nil
+        }
+        // Generate block
+        var block = StateBlock(.send)
+        block.previous = self.accountInfo.frontier.uppercased()
+        block.link = self.recipientAddress
+        block.rawDecimalBalance = self.rawBalance.decimalNumber
+        block.representative = self.accountInfo.representative
+
+        if block.build(with: keyPair) {
+            return block
+        } else {
+            return nil
+        }
+    }
 }
