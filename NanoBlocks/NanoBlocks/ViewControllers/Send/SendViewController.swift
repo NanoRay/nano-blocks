@@ -37,6 +37,7 @@ class SendViewController: UIViewController {
     @IBOutlet weak var scanButton: UIButton?
     @IBOutlet weak var bgView: UIView?
     weak var delegate: SendViewControllerDelegate?
+    
     private(set) var account: AccountInfo
     private var manta: MantaWallet?
     
@@ -63,6 +64,7 @@ class SendViewController: UIViewController {
         }
     }
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()

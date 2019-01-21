@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import mantaswift
 
 class EnterAddressViewController: TransparentNavViewController {
 
@@ -18,6 +19,7 @@ class EnterAddressViewController: TransparentNavViewController {
     @IBOutlet weak var textView: UITextView?
     var viewModel = EnterAddressViewModel()
     var onSelect: ((AddressEntry) -> Void)?
+    var onMantaSelect: ((String) -> Void)?
     private let textViewPlaceholder = "Enter address"
     
     override func viewDidLoad() {
@@ -28,11 +30,11 @@ class EnterAddressViewController: TransparentNavViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        
+
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
-        
+
     }
     
     override func viewDidLayoutSubviews() {
@@ -114,8 +116,10 @@ class EnterAddressViewController: TransparentNavViewController {
         inputXButton?.isHidden = isEmpty || !tableView.isHidden
         nameLabel?.isHidden = isEmpty || !tableView.isHidden
         textView.isHidden = !tableView.isHidden
-
-        continueButton?.isEnabled = WalletUtil.derivePublic(from: textView.text) != nil
+        
+        let isMantaURL = ((MantaWallet.parseURL(searchTextField?.text ?? "").count) > 0)
+        
+        continueButton?.isEnabled = WalletUtil.derivePublic(from: textView.text) != nil || isMantaURL
         nameLabel?.text = viewModel.addressMap[textView.text] ?? .localize("unknown")
     }
     
@@ -126,6 +130,17 @@ class EnterAddressViewController: TransparentNavViewController {
     }
     
     @objc fileprivate func continuePressed() {
+        // Check if is manta URL
+        if let stf = searchTextField?.text {
+            if (MantaWallet.parseURL(stf).count > 0) {
+                //let mantaPaymentRequestControllerVC = MantaPaymentRequestViewController()
+                //self.present(UINavigationController(rootViewController: mantaPaymentRequestControllerVC), animated: true )
+                //return
+                onMantaSelect?(stf)
+                //dismiss(animated: true)
+            }
+        }
+
         guard let address = textView?.text, let name = nameLabel?.text else { return }
         let entry = AddressEntry()
         entry.address = address
@@ -145,6 +160,9 @@ class EnterAddressViewController: TransparentNavViewController {
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
+        // Check if Manta Address
+        
+
         viewModel.filter(with: textField.text ?? "")
         
         if (textField.text == "") {

@@ -15,15 +15,27 @@ protocol SendCoordinatorDelegate: class {
     func closeTapped(coordinator: Coordinator)
 }
 
+func getTopMostViewController() -> UIViewController? {
+    var topMostViewController = UIApplication.shared.keyWindow?.rootViewController
+    
+    while let presentedViewController = topMostViewController?.presentedViewController {
+        topMostViewController = presentedViewController
+    }
+    
+    return topMostViewController
+}
+
 class SendCoordinator: RootViewCoordinator {
     var childCoordinators: [Coordinator] = []
     var rootViewController: UIViewController
     fileprivate var sendViewController: SendViewController
+    fileprivate var mantaPaymentRequestVC: MantaPaymentRequestViewController
     private(set) var account: AccountInfo
     weak var delegate: SendCoordinatorDelegate?
     
     init(root: UIViewController, account: AccountInfo) {
         self.rootViewController = root
+        self.mantaPaymentRequestVC = MantaPaymentRequestViewController(account: account)
         self.sendViewController = SendViewController(account: account)
         self.account = account
     }
@@ -31,20 +43,32 @@ class SendCoordinator: RootViewCoordinator {
     func start() {
         sendViewController.delegate = self
         sendViewController.modalPresentationStyle = .overFullScreen
-        sendViewController.delegate = self
         rootViewController.present(sendViewController, animated: true)
+        mantaPaymentRequestVC.modalPresentationStyle = .overFullScreen
+        mantaPaymentRequestVC.delegate = self
+//        rootViewController.present(mantaPaymentRequestVC, animated: true)
     }
 }
 
 
 extension SendCoordinator: SendViewControllerDelegate {
+    
+    
     func enterAddressTapped() {
         let enterAddressVC = EnterAddressViewController()
         enterAddressVC.onSelect = { [weak self] (entry) in
             self?.sendViewController.apply(entry: entry)
         }
+        
+        enterAddressVC.onMantaSelect = { [weak self] (url) in
+            enterAddressVC.dismiss(animated: true) {
+                self?.handleManta(url: url)
+            }
+        }
+        
         enterAddressVC.modalTransitionStyle = .crossDissolve
         sendViewController.present(UINavigationController(rootViewController: enterAddressVC), animated: true)
+        Lincoln.log("Are we dismissed?")
     }
     
     func enterAmountTapped() {
@@ -69,7 +93,15 @@ extension SendCoordinator: SendViewControllerDelegate {
             me.rootViewController.dismiss(animated: true)
             me.delegate?.sendComplete(coordinator:  me)
         }
-        sendViewController.present(UINavigationController(rootViewController: confirmVC), animated: true)
+        getTopMostViewController()?.present(UINavigationController(rootViewController: confirmVC), animated: true)
+    }
+    
+    func handleManta(url: String) {
+        mantaPaymentRequestVC.mantaURL = url
+        sendViewController.dismiss(animated: true) {
+            self.rootViewController.present(self.mantaPaymentRequestVC, animated: true)
+        }
+        
     }
     
     func closeTapped() {

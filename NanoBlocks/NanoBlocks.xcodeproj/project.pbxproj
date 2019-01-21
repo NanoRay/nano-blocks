@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		189D3C8021F5FB320092B303 /* MantaPaymentRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D3C7F21F5FB320092B303 /* MantaPaymentRequestViewController.swift */; };
+		189D3C8621F645210092B303 /* MantaPaymentRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 189D3C8521F645210092B303 /* MantaPaymentRequestViewController.xib */; };
 		A70E8E032094F91B00372394 /* EnterAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70E8E022094F91B00372394 /* EnterAddressViewController.swift */; };
 		A70E8E062097B7FF00372394 /* DataExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70E8E052097B7FF00372394 /* DataExporter.swift */; };
 		A71CEB9E2054AE2F00FF6B54 /* LockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71CEB9C2054AE2F00FF6B54 /* LockViewController.swift */; };
@@ -163,6 +165,8 @@
 
 /* Begin PBXFileReference section */
 		0FCBF9050B355F6BFF6E7104 /* Pods-GenesisWallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenesisWallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-GenesisWallet/Pods-GenesisWallet.release.xcconfig"; sourceTree = "<group>"; };
+		189D3C7F21F5FB320092B303 /* MantaPaymentRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MantaPaymentRequestViewController.swift; sourceTree = "<group>"; };
+		189D3C8521F645210092B303 /* MantaPaymentRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MantaPaymentRequestViewController.xib; sourceTree = "<group>"; };
 		1C040B25385B8D2588C0376E /* Pods_NanoWallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NanoWallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		230E436E94AB58C7573ED697 /* Pods-NanoWalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NanoWalletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NanoWalletTests/Pods-NanoWalletTests.release.xcconfig"; sourceTree = "<group>"; };
 		23F5581ECB86384B9E38413C /* Pods-NanoBlocks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NanoBlocks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NanoBlocks/Pods-NanoBlocks.debug.xcconfig"; sourceTree = "<group>"; };
@@ -348,6 +352,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		189D3C7C21F5F2AB0092B303 /* MantaPaymentRequest */ = {
+			isa = PBXGroup;
+			children = (
+				189D3C8521F645210092B303 /* MantaPaymentRequestViewController.xib */,
+				189D3C7F21F5FB320092B303 /* MantaPaymentRequestViewController.swift */,
+			);
+			path = MantaPaymentRequest;
+			sourceTree = "<group>";
+		};
 		A71CEBA02054AE4000FF6B54 /* LockWallet */ = {
 			isa = PBXGroup;
 			children = (
@@ -724,6 +737,7 @@
 		A7EF842A1FEDCD4C00C74035 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				189D3C7C21F5F2AB0092B303 /* MantaPaymentRequest */,
 				A73229CC20AEBD7300CACB3A /* Disclaimer */,
 				A749FD13208DBA6B00AB7D9C /* BlockInfo */,
 				A768B998201F037D00620B62 /* EnterAmount */,
@@ -931,6 +945,7 @@
 				A7B3280F20049D4B00E0E360 /* PassphraseCollectionViewCell.xib in Resources */,
 				A7975A8E20787D6100B2995D /* Localizable.strings in Resources */,
 				A76AC7B9202AD8C200C7CEE8 /* SettingsTableViewCell.xib in Resources */,
+				189D3C8621F645210092B303 /* MantaPaymentRequestViewController.xib in Resources */,
 				A768B9A22021170400620B62 /* ConfirmTxViewController.xib in Resources */,
 				A79116EE2015758A00890432 /* QRScanViewController.xib in Resources */,
 				A74361EE1FE64F9100054078 /* Assets.xcassets in Resources */,
@@ -1159,6 +1174,7 @@
 				A726C2811FFCD5D400E73C18 /* AccountTableViewCell.swift in Sources */,
 				A7EF84271FEDCC8300C74035 /* Coordinator.swift in Sources */,
 				A70E8E032094F91B00372394 /* EnterAddressViewController.swift in Sources */,
+				189D3C8021F5FB320092B303 /* MantaPaymentRequestViewController.swift in Sources */,
 				A732982A200A0A6D00B21C8D /* AccountsViewModel.swift in Sources */,
 				A7E216C120DCE5EA003B8FCA /* TitleTableViewController.swift in Sources */,
 			);
