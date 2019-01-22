@@ -39,7 +39,6 @@ class SendViewController: UIViewController {
     weak var delegate: SendViewControllerDelegate?
     
     private(set) var account: AccountInfo
-    private var manta: MantaWallet?
     
     init(account: AccountInfo) {
         self.account = account
@@ -158,7 +157,7 @@ class SendViewController: UIViewController {
             return
         }
 
-        let txInfo = TxInfo(recipientName: recipientName, recipientAddress: recipientAddress, amount: amount, rawBalance: remaining.stringValue, accountInfo: account, manta: manta)
+        let txInfo = TxInfo(recipientName: recipientName, recipientAddress: recipientAddress, amount: amount, rawBalance: remaining.stringValue, accountInfo: account, manta: nil)
         delegate?.sendTapped(txInfo: txInfo)
     }
     
@@ -214,23 +213,8 @@ class SendViewController: UIViewController {
         nameAddressStackView?.isHidden = false
         enterAddressButton?.isHidden = true
         
-        if let url = scanResult.mantaURL {
-            manta = MantaWallet (url)
-            manta?.getPaymentRequest(cryptoCurrency: "NANO").then { paymentRequestEnvelope in
-                // TODO: Forcing try no good
-                let paymentRequest = try! paymentRequestEnvelope.unpack()
-                
-                self.addressLabel?.text = paymentRequest.destinations[0].destinationAddress
-                self.addAddressButton?.isHidden = true
-                self.nameButton?.setTitle(paymentRequest.merchant.name, for: .normal)
-                // To be checked
-                // setAmount(Double(paymentRequest.destinations[0].amount * 1000000000000000000000000000000))
-                setAmount(NSDecimalNumber(decimal: paymentRequest.destinations[0].amount).stringValue)
-                //setAmount(NSDecimalString(paymentRequest.amount))
-            }
-        }
-        
-        else {
+       
+
         
             addressLabel?.text = scanResult.address
 
@@ -245,7 +229,5 @@ class SendViewController: UIViewController {
             if let amount = scanResult.nanoAmount {
                 setAmount(amount)
             }
-            
-        }
     }
 }

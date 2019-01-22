@@ -23,19 +23,35 @@ class MantaPaymentRequestViewController: UIViewController {
     
    
     weak var delegate: SendViewControllerDelegate?
-    var mantaURL: String?
-    
+
     private(set) var account: AccountInfo
     private var paymentRequest: PaymentRequestMessage?
-    private var manta: MantaWallet?
+    private let manta: MantaWallet?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+
+        activityIndicator.startAnimating()
+        
+        manta?.getPaymentRequest(cryptoCurrency: "NANO").then { paymentRequestEnvelope in
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
+            // TODO: Forcing try no good
+            let paymentRequest = try! paymentRequestEnvelope.unpack()
+            self.paymentRequest = paymentRequest
+            self.destinationAddress.text = paymentRequest.destinations[0].destinationAddress
+            self.merchantName.text = paymentRequest.merchant.name
+            self.merchantAddress.text = paymentRequest.merchant.address
+            self.fiatAmount.text = NSDecimalNumber(decimal: paymentRequest.amount).stringValue + " EUR"
+            self.cryptoAmount.text = NSDecimalNumber(decimal: paymentRequest.destinations[0].amount).stringValue + "Nano"
+            
+        }
     }
     
-    init(account: AccountInfo) {
+    init(account: AccountInfo, mantaURL: String) {
         self.account = account
+        manta = MantaWallet (mantaURL)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -52,27 +68,7 @@ class MantaPaymentRequestViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        guard let url = mantaURL else {
-            return
-        }
-        
-        manta = MantaWallet (url)
-        
-        activityIndicator.startAnimating()
-        
-        manta?.getPaymentRequest(cryptoCurrency: "NANO").then { paymentRequestEnvelope in
-            self.activityIndicator.stopAnimating()
-            self.activityIndicator.isHidden = true
-            // TODO: Forcing try no good
-            let paymentRequest = try! paymentRequestEnvelope.unpack()
-            self.paymentRequest = paymentRequest
-            self.destinationAddress.text = paymentRequest.destinations[0].destinationAddress
-            self.merchantName.text = paymentRequest.merchant.name
-            self.merchantAddress.text = paymentRequest.merchant.address
-            self.fiatAmount.text = NSDecimalNumber(decimal: paymentRequest.amount).stringValue + " EUR"
-            self.cryptoAmount.text = NSDecimalNumber(decimal: paymentRequest.destinations[0].amount).stringValue + "Nano"
-        
-        }
+
         
     }
     

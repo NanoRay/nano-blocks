@@ -29,13 +29,12 @@ class SendCoordinator: RootViewCoordinator {
     var childCoordinators: [Coordinator] = []
     var rootViewController: UIViewController
     fileprivate var sendViewController: SendViewController
-    fileprivate var mantaPaymentRequestVC: MantaPaymentRequestViewController
+    fileprivate var mantaPaymentRequestVC: MantaPaymentRequestViewController?
     private(set) var account: AccountInfo
     weak var delegate: SendCoordinatorDelegate?
     
     init(root: UIViewController, account: AccountInfo) {
         self.rootViewController = root
-        self.mantaPaymentRequestVC = MantaPaymentRequestViewController(account: account)
         self.sendViewController = SendViewController(account: account)
         self.account = account
     }
@@ -44,9 +43,6 @@ class SendCoordinator: RootViewCoordinator {
         sendViewController.delegate = self
         sendViewController.modalPresentationStyle = .overFullScreen
         rootViewController.present(sendViewController, animated: true)
-        mantaPaymentRequestVC.modalPresentationStyle = .overFullScreen
-        mantaPaymentRequestVC.delegate = self
-//        rootViewController.present(mantaPaymentRequestVC, animated: true)
     }
 }
 
@@ -97,9 +93,12 @@ extension SendCoordinator: SendViewControllerDelegate {
     }
     
     func handleManta(url: String) {
-        mantaPaymentRequestVC.mantaURL = url
+        mantaPaymentRequestVC = MantaPaymentRequestViewController(account: account, mantaURL: url)
+        mantaPaymentRequestVC?.modalPresentationStyle = .overFullScreen
+        mantaPaymentRequestVC?.delegate = self
         sendViewController.dismiss(animated: true) {
-            self.rootViewController.present(self.mantaPaymentRequestVC, animated: true)
+            guard let mantaPaymentRequestVC = self.mantaPaymentRequestVC else { return }
+            self.rootViewController.present(mantaPaymentRequestVC, animated: true)
         }
         
     }
@@ -110,8 +109,16 @@ extension SendCoordinator: SendViewControllerDelegate {
     
     func scanTapped() {
         let qrVC = QRScanViewController()
+        
         qrVC.onQRCodeScanned = { [weak self] (result) in
             self?.sendViewController.apply(scanResult: result)
+            
+            qrVC.dismiss(animated: true) {
+                guard let url = result.mantaURL else {
+                    return
+                }
+                self?.handleManta(url: url)
+            }
         }
         sendViewController.present(UINavigationController(rootViewController: qrVC), animated: true)
     }

@@ -66,7 +66,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   mantaswift:
-    :commit: e729931f1546a89980a30a85760f2dcea671c2c4
+    :commit: e3dec63dff3c58e58705132c638511d36d4cc299
     :git: https://github.com/NanoRay/mantaswift
   Sodium:
     :commit: 4b32f5d12c587e4252e039d60f9a1498526ece5b

@@ -155,7 +155,6 @@ extension QRScanViewController: AVCaptureMetadataOutputObjectsDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
                 let paymentInfo = manta ? PaymentInfo(url: value) : PaymentInfo(amount: amount, address: address!)
                 self.onQRCodeScanned?(paymentInfo)
-                self.dismiss(animated: true)
             })
         }
     }
