@@ -16,6 +16,8 @@ class AppCoordinator: NSObject, RootViewCoordinator {
     }
     private(set) var navController: UINavigationController
     
+    var url: URL?
+    
     // MARK: - Initializers 
     
     override init() {

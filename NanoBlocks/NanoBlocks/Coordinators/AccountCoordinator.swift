@@ -25,8 +25,16 @@ class AccountCoordinator: RootViewCoordinator {
         accountVC = AccountViewController(account: account)
         accountVC?.delegate = self
         if let accountVC = accountVC {
+            // Check if have opening url
+            let openingURL = AppCoordinator.shared.url != nil
+            
             navController.pushViewController(accountVC, animated: true)
-        }
+            
+            if  openingURL {
+                sendTapped(account: account)
+            }
+            
+        }        
     }
 }
 

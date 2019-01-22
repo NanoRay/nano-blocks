@@ -40,9 +40,18 @@ class SendCoordinator: RootViewCoordinator {
     }
     
     func start() {
-        sendViewController.delegate = self
-        sendViewController.modalPresentationStyle = .overFullScreen
-        rootViewController.present(sendViewController, animated: true)
+        
+        // Check for opening URL
+        if let url = AppCoordinator.shared.url{
+            AppCoordinator.shared.url = nil
+            handleManta(url: url.absoluteString)
+        }
+        
+        else {
+            sendViewController.delegate = self
+            sendViewController.modalPresentationStyle = .overFullScreen
+            rootViewController.present(sendViewController, animated: true)
+        }
     }
 }
 
@@ -94,13 +103,20 @@ extension SendCoordinator: SendViewControllerDelegate {
     
     func handleManta(url: String) {
         mantaPaymentRequestVC = MantaPaymentRequestViewController(account: account, mantaURL: url)
-        mantaPaymentRequestVC?.modalPresentationStyle = .overFullScreen
-        mantaPaymentRequestVC?.delegate = self
-        sendViewController.dismiss(animated: true) {
-            guard let mantaPaymentRequestVC = self.mantaPaymentRequestVC else { return }
+        guard let mantaPaymentRequestVC = self.mantaPaymentRequestVC else { return }
+        
+        mantaPaymentRequestVC.modalPresentationStyle = .overFullScreen
+        mantaPaymentRequestVC.delegate = self
+        
+        // If we have sendview, first dismiss it
+        if sendViewController.viewIfLoaded?.window != nil {
+            sendViewController.dismiss(animated: true) {
+                self.rootViewController.present(mantaPaymentRequestVC, animated: true)
+            }
+        }
+        else {
             self.rootViewController.present(mantaPaymentRequestVC, animated: true)
         }
-        
     }
     
     func closeTapped() {

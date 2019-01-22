@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let alert = UIAlertController(title: "Uh oh!", message: "We've detected your device may be jail broken. It is strongly recommended that you don't run wallet software on a jail broken device.", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(okAction)
+            // AppCoordinator.shared.url = URL(string: "manta://developer.beappia.com/123") 
             AppCoordinator.shared.rootViewController.present(alert, animated: true)
         }
         
@@ -52,11 +53,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
-        if let paymentInfo = URLHandler.parse(url: url),
-            let _ = WalletUtil.derivePublic(from: paymentInfo.address ?? "") {
-            // TODO: Present account view with send
-        }
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        AppCoordinator.shared.url = url
         return true
     }
     

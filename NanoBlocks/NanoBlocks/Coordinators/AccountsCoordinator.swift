@@ -28,9 +28,20 @@ class AccountsCoordinator: RootViewCoordinator {
         accountsVC.delegate = self
         navController.viewControllers = [accountsVC]
         navController.modalTransitionStyle = .crossDissolve
-        rootViewController.present(navController, animated: true)
         
         setupPubSub()
+        
+        if AppCoordinator.shared.url != nil {
+            // get first account
+            guard let account = WalletManager.shared.account(at: 0) else { return }
+            rootViewController.present(navController, animated: false)
+            accountTapped(account)
+        }
+        else {
+            rootViewController.present(navController, animated: true)
+        }
+        
+        
     }
     
     fileprivate func setupPubSub() {
