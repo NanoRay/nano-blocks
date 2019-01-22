@@ -21,9 +21,9 @@ class MantaPaymentRequestViewController: UIViewController {
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var bgView: UIVisualEffectView!
     
-   
+    
     weak var delegate: SendViewControllerDelegate?
-
+    
     private(set) var account: AccountInfo
     private var paymentRequest: PaymentRequestMessage?
     private let manta: MantaWallet?
@@ -31,21 +31,26 @@ class MantaPaymentRequestViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-
+        
         activityIndicator.startAnimating()
         
-        manta?.getPaymentRequest(cryptoCurrency: "NANO").then { paymentRequestEnvelope in
-            self.activityIndicator.stopAnimating()
-            self.activityIndicator.isHidden = true
-            // TODO: Forcing try no good
-            let paymentRequest = try! paymentRequestEnvelope.unpack()
-            self.paymentRequest = paymentRequest
-            self.destinationAddress.text = paymentRequest.destinations[0].destinationAddress
-            self.merchantName.text = paymentRequest.merchant.name
-            self.merchantAddress.text = paymentRequest.merchant.address
-            self.fiatAmount.text = NSDecimalNumber(decimal: paymentRequest.amount).stringValue + " EUR"
-            self.cryptoAmount.text = NSDecimalNumber(decimal: paymentRequest.destinations[0].amount).stringValue + "Nano"
+        manta?.getPaymentRequest(cryptoCurrency: "NANO").timeout(3).catch { [weak self] _ in
+            Banner.show(.localize("Error getting payment request"), style: .danger)
+            guard let me = self else { return }
+            me.closeTapped(me)
             
+            }.then { paymentRequestEnvelope in
+                // TODO: Forcing try no good
+                let paymentRequest = try! paymentRequestEnvelope.unpack()
+                self.paymentRequest = paymentRequest
+                self.destinationAddress.text = paymentRequest.destinations[0].destinationAddress
+                self.merchantName.text = paymentRequest.merchant.name
+                self.merchantAddress.text = paymentRequest.merchant.address
+                self.fiatAmount.text = NSDecimalNumber(decimal: paymentRequest.amount).stringValue + " EUR"
+                self.cryptoAmount.text = NSDecimalNumber(decimal: paymentRequest.destinations[0].amount).stringValue + "Nano"
+            }.always {
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
         }
     }
     
@@ -68,7 +73,7 @@ class MantaPaymentRequestViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-
+        
         
     }
     
