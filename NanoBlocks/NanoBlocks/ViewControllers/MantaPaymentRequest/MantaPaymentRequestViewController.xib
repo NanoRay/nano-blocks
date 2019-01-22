@@ -50,10 +50,10 @@
                                             <action selector="closeTapped:" destination="-1" eventType="touchUpInside" id="2Is-qv-OJK"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Merchant" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JbI-XI-R6J">
-                                        <rect key="frame" x="20" y="100" width="73" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Request for payment by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JbI-XI-R6J">
+                                        <rect key="frame" x="20" y="100" width="183" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Merchant Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJC-EF-sA0">
@@ -111,14 +111,19 @@
                                         <rect key="frame" x="169" y="183" width="37" height="37"/>
                                     </activityIndicatorView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appia_logo" translatesAutoresizingMaskIntoConstraints="NO" id="7Cl-AC-Qbs">
-                                        <rect key="frame" x="64" y="3.5" width="247" height="73"/>
+                                        <rect key="frame" x="64" y="10" width="247" height="73"/>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Request signed and verified by Appia" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7U7-ra-z3m">
+                                        <rect key="frame" x="52" y="367" width="271" height="18"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <color key="textColor" red="0.14901960784313725" green="0.32941176470588235" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="YoS-3a-Bdf" firstAttribute="leading" secondItem="JbI-XI-R6J" secondAttribute="leading" id="2GD-ub-g1q"/>
                                     <constraint firstItem="9Ev-to-UX6" firstAttribute="top" secondItem="uc5-D4-vDU" secondAttribute="top" constant="25" id="3Lc-i7-C44"/>
                                     <constraint firstAttribute="trailing" secondItem="Ay7-s2-emC" secondAttribute="trailing" constant="20" id="5yE-jb-zlM"/>
-                                    <constraint firstItem="7Cl-AC-Qbs" firstAttribute="centerX" secondItem="uc5-D4-vDU" secondAttribute="centerX" id="AlM-LJ-jpz"/>
                                     <constraint firstItem="nBO-0f-tuI" firstAttribute="centerX" secondItem="uc5-D4-vDU" secondAttribute="centerX" id="D2K-cv-PRb"/>
                                     <constraint firstAttribute="trailing" secondItem="YoS-3a-Bdf" secondAttribute="trailing" constant="20" id="DOn-EN-5yF"/>
                                     <constraint firstItem="bJC-EF-sA0" firstAttribute="top" secondItem="JbI-XI-R6J" secondAttribute="bottom" constant="8" id="I4X-X6-tf5"/>
@@ -130,11 +135,14 @@
                                     <constraint firstItem="nBO-0f-tuI" firstAttribute="top" secondItem="9Z4-Au-eqr" secondAttribute="bottom" constant="8" id="XyI-wb-jFz"/>
                                     <constraint firstItem="c6L-ck-Sf0" firstAttribute="top" secondItem="Ay7-s2-emC" secondAttribute="bottom" constant="8" symbolic="YES" id="ZFU-rx-bNQ"/>
                                     <constraint firstItem="9Ev-to-UX6" firstAttribute="leading" secondItem="bJC-EF-sA0" secondAttribute="leading" id="bid-5d-n5O"/>
+                                    <constraint firstItem="7Cl-AC-Qbs" firstAttribute="top" secondItem="uc5-D4-vDU" secondAttribute="top" constant="10" id="e4r-Va-yuC"/>
                                     <constraint firstItem="Ay7-s2-emC" firstAttribute="top" secondItem="miz-iQ-3vK" secondAttribute="bottom" constant="20" id="fyk-4R-cN6"/>
                                     <constraint firstItem="9Z4-Au-eqr" firstAttribute="top" secondItem="c6L-ck-Sf0" secondAttribute="bottom" constant="8" id="gHu-MJ-o1G"/>
                                     <constraint firstItem="9Ev-to-UX6" firstAttribute="width" secondItem="9Ev-to-UX6" secondAttribute="height" multiplier="1:1" id="hdI-QA-kp0"/>
-                                    <constraint firstItem="7Cl-AC-Qbs" firstAttribute="centerY" secondItem="9Ev-to-UX6" secondAttribute="centerY" id="jYa-lz-Dq2"/>
+                                    <constraint firstItem="YoS-3a-Bdf" firstAttribute="top" secondItem="7U7-ra-z3m" secondAttribute="bottom" constant="20" id="kFg-lY-jsa"/>
                                     <constraint firstItem="JbI-XI-R6J" firstAttribute="top" secondItem="uc5-D4-vDU" secondAttribute="top" constant="100" id="kdQ-4z-pra"/>
+                                    <constraint firstItem="7U7-ra-z3m" firstAttribute="centerX" secondItem="uc5-D4-vDU" secondAttribute="centerX" id="nHB-Fb-gsr"/>
+                                    <constraint firstItem="7Cl-AC-Qbs" firstAttribute="centerX" secondItem="uc5-D4-vDU" secondAttribute="centerX" id="pyO-h5-CEk"/>
                                     <constraint firstAttribute="bottom" secondItem="YoS-3a-Bdf" secondAttribute="bottom" constant="50" id="qRh-Yc-oR5"/>
                                     <constraint firstItem="Ay7-s2-emC" firstAttribute="leading" secondItem="uc5-D4-vDU" secondAttribute="leading" constant="20" id="qv0-rf-sOL"/>
                                     <constraint firstItem="bJC-EF-sA0" firstAttribute="leading" secondItem="JbI-XI-R6J" secondAttribute="leading" id="vgr-Jc-Hj4"/>
