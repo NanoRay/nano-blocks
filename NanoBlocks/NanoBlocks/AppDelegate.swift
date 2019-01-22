@@ -13,9 +13,8 @@ import LocalAuthentication
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        PersistentStore.handleMigration()
+    
+    func setup() {
         checkBiometrics()
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -37,9 +36,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let alert = UIAlertController(title: "Uh oh!", message: "We've detected your device may be jail broken. It is strongly recommended that you don't run wallet software on a jail broken device.", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(okAction)
-            // AppCoordinator.shared.url = URL(string: "manta://developer.beappia.com/123") 
+            // AppCoordinator.shared.url = URL(string: "manta://developer.beappia.com/123")
             AppCoordinator.shared.rootViewController.present(alert, animated: true)
         }
+    }
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        PersistentStore.handleMigration()
+        setup()
         
         return true
     }
@@ -55,6 +59,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         AppCoordinator.shared.url = url
+        
+        // Reset app as we can get url at any time
+        AppCoordinator.shared.reset()
+        setup()
+
         return true
     }
     

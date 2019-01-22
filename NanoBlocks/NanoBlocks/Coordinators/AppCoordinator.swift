@@ -26,6 +26,12 @@ class AppCoordinator: NSObject, RootViewCoordinator {
         setupNav()
     }
     
+    func reset() {
+        self.navController = UINavigationController()
+        childCoordinators = []
+        setupNav()
+    }
+    
     func start() {
         guard !WalletManager.shared.isLocked else {
             navController.pushViewController(LockViewController(), animated: true)
