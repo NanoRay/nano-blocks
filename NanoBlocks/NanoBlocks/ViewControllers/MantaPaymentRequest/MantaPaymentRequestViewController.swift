@@ -19,7 +19,7 @@ class MantaPaymentRequestViewController: UIViewController {
     @IBOutlet weak var destinationAddress: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var sendButton: UIButton!
-    @IBOutlet weak var bgView: UIVisualEffectView!
+    @IBOutlet weak var bgView: UIView!
     
     
     weak var delegate: SendViewControllerDelegate?
