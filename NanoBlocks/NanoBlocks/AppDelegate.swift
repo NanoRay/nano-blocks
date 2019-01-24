@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let alert = UIAlertController(title: "Uh oh!", message: "We've detected your device may be jail broken. It is strongly recommended that you don't run wallet software on a jail broken device.", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(okAction)
-            AppCoordinator.shared.url = URL(string: "manta://developer.beappia.com/NVZzHXM7TiGgie8Js66pdw==")
+            // AppCoordinator.shared.url = URL(string: "manta://developer.beappia.com/NVZzHXM7TiGgie8Js66pdw==")
             AppCoordinator.shared.rootViewController.present(alert, animated: true)
         }
     }

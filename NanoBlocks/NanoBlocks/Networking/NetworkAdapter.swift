@@ -42,8 +42,10 @@ public struct NetworkAdapter {
         // TODO: get other error messages
     }
     
+    
     static let provider = MoyaProvider<CanoeService>()
     static let ninjaProvider = MoyaProvider<NanoNodeNinjaService>()
+    static let appiaProvider = MoyaProvider<AppiaService>()
     
     // MARK: - Canoe
     
@@ -142,6 +144,12 @@ public struct NetworkAdapter {
     
     static func request(target: CanoeService, success successCallback: @escaping (Response) -> Void, error errorCallback: ((Swift.Error) -> Void)? = nil, failure failureCallback: ((MoyaError) -> Void)? = nil) {
         provider.request(target) { (result) in
+            handleResult(result, success: successCallback, error: errorCallback, failure: failureCallback)
+        }
+    }
+    
+    static func request(target: AppiaService, success successCallback: @escaping (Response) -> Void, error errorCallback: ((Swift.Error) -> Void)? = nil, failure failureCallback: ((MoyaError) -> Void)? = nil) {
+        appiaProvider.request(target) { (result) in
             handleResult(result, success: successCallback, error: errorCallback, failure: failureCallback)
         }
     }
