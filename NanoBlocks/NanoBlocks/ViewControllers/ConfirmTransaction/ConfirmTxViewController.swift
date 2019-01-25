@@ -116,7 +116,9 @@ class ConfirmTxViewController: UIViewController {
             switch result {
             case .success(let blockHash):
                 if let manta = mantaWallet {
-                        manta.sendPayment_(cryptoCurrency: "NANO", hashes: blockHash)
+                    manta.sendPayment_(cryptoCurrency: "NANO", hashes: blockHash).then { _ in
+                        Lincoln.log("Received ack for sent payment")
+                    }
                 }
                 LoadingView.stopAnimating(true) {
                     self?.onSendComplete?()

@@ -56,7 +56,18 @@ class MantaPaymentRequestViewController: UIViewController {
     
     init(account: AccountInfo, mantaURL: String) {
         self.account = account
+        
+        #if DEBUG
+        let keyPair = WalletManager.shared.keyPair(at: account.index)
+
+        LogStashLogger.configure(host: "cluster.beappia.com", port: 5000, extra: ["app": "nanoblocks", "account": keyPair?.xrbAccount ?? ""])
+        MultipleLogger.configure([LogStashLogger.self, ConsoleLogger.self])
+        
+        manta = MantaWallet (mantaURL, logger: MultipleLogger.self)
+        #else
         manta = MantaWallet (mantaURL)
+        #endif
+        
         super.init(nibName: nil, bundle: nil)
     }
     
